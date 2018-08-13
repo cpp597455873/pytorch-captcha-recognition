@@ -5,6 +5,8 @@ import random
 import time
 import captcha_setting
 import os
+import shutil
+
 
 def random_captcha():
     captcha_text = []
@@ -13,6 +15,7 @@ def random_captcha():
         captcha_text.append(c)
     return ''.join(captcha_text)
 
+
 # 生成字符对应的验证码
 def gen_captcha_text_and_image():
     image = ImageCaptcha()
@@ -20,13 +23,18 @@ def gen_captcha_text_and_image():
     captcha_image = Image.open(image.generate(captcha_text))
     return captcha_text, captcha_image
 
+
 if __name__ == '__main__':
-    count = 5
-    path = captcha_setting.PREDICT_DATASET_PATH+'/1'
+    count = 20000
+    # path = captcha_setting.TRAIN_DATASET_PATH
+    path = captcha_setting.TRAIN_DATASET_PATH
+    if (os.path.exists(path)):
+        shutil.rmtree(path)
+    os.makedirs(path)
+    # path = captcha_setting.TEST_DATASET_PATH
     for i in range(count):
         now = str(int(time.time()))
         text, image = gen_captcha_text_and_image()
-        filename = text+'_'+now+'.png'
-        image.save(path  + os.path.sep +  filename)
-        print('saved %d : %s' % (i+1,filename))
-
+        filename = text + '_' + now + '.png'
+        image.save(path + os.path.sep + filename)
+        print('saved %d : %s' % (i + 1, filename))

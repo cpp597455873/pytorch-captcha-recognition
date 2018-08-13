@@ -6,9 +6,10 @@ import my_dataset
 from captcha_cnn_model import CNN
 
 # Hyper Parameters
-num_epochs = 30
+num_epochs = 3
 batch_size = 100
 learning_rate = 0.001
+
 
 def main():
     cnn = CNN()
@@ -29,16 +30,15 @@ def main():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            if (i+1) % 10 == 0:
+            if (i + 1) % 10 == 0:
                 print("epoch:", epoch, "step:", i, "loss:", loss.item())
-            if (i+1) % 100 == 0:
-                torch.save(cnn.state_dict(), "./model.pkl")   #current is model.pkl
+            if (i + 1) % 100 == 0:
+                torch.save(cnn.state_dict(), "./model.pkl")  # current is model.pkl
                 print("save model")
         print("epoch:", epoch, "step:", i, "loss:", loss.item())
-    torch.save(cnn.state_dict(), "./model.pkl")   #current is model.pkl
+    torch.save(cnn.state_dict(), "./model.pkl")  # current is model.pkl
     print("save last model")
+
 
 if __name__ == '__main__':
     main()
-
-
