@@ -27,14 +27,15 @@ def gen_captcha_text_and_image():
 if __name__ == '__main__':
     count = 20000
     # path = captcha_setting.TRAIN_DATASET_PATH
-    path = captcha_setting.TRAIN_DATASET_PATH
-    if (os.path.exists(path)):
+    # path = captcha_setting.TEST_DATASET_PATH
+    path = captcha_setting.TEST_DATASET_PATH
+    if os.path.exists(path):
         shutil.rmtree(path)
     os.makedirs(path)
-    # path = captcha_setting.TEST_DATASET_PATH
     for i in range(count):
         now = str(int(time.time()))
         text, image = gen_captcha_text_and_image()
         filename = text + '_' + now + '.png'
         image.save(path + os.path.sep + filename)
         print('saved %d : %s' % (i + 1, filename))
+

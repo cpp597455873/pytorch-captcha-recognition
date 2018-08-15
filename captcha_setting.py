@@ -12,9 +12,14 @@ ALL_CHAR_SET_LEN = len(ALL_CHAR_SET)
 MAX_CAPTCHA = 4
 
 # 图像大小
-IMAGE_HEIGHT = 60
-IMAGE_WIDTH = 160
+IMAGE_HEIGHT = 36
+IMAGE_WIDTH = 80
 
-TRAIN_DATASET_PATH = os.getcwd() + os.path.sep + 'dataset' + os.path.sep + 'train' + os.path.sep
-TEST_DATASET_PATH = os.getcwd() + os.path.sep + 'dataset' + os.path.sep + 'test' + os.path.sep
+# TRAIN_DATASET_PATH = os.getcwd() + os.path.sep + 'dataset' + os.path.sep + 'train' + os.path.sep
+# # TEST_DATASET_PATH = os.getcwd() + os.path.sep + 'dataset' + os.path.sep + 'test' + os.path.sep
+
+TRAIN_DATASET_PATH = "D:\\machine_learn\\train1\\"
+# TEST_DATASET_PATH = "D:\\machine_learn\\test\\"
+TEST_DATASET_PATH = "D:\\machine_learn\\test\\"
+TEST1_DATASET_PATH = "D:\\machine_learn\\test1\\"
 PREDICT_DATASET_PATH = os.getcwd() + os.path.sep + 'dataset' + os.path.sep + 'predict' + os.path.sep
