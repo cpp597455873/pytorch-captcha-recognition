@@ -4,9 +4,9 @@ import torch.nn as nn
 from torch.autograd import Variable
 import my_dataset
 from captcha_cnn_model import CNN
-import matplotlib.pyplot as plt
 import captcha_test
 import time
+import threading
 
 # Hyper Parameters
 num_epochs = 30
@@ -16,17 +16,23 @@ learning_rate = 0.001
 y = []
 x = []
 
-plt.figure()
-plt.ion()
+
+def draw():
+    while True:
+        try:
+            import matplotlib.pyplot as plt
+            plt.ion()
+            plt.figure(1)
+            plt.cla()
+            plt.plot(x, y)
+            plt.pause(1)
+        finally:
+            pass
 
 
-def draw_line(xv):
-    rate = captcha_test.calulate_rate()
-    x.append(xv)
-    y.append(rate)
-    plt.cla()
-    plt.plot(x, y)
-    plt.pause(0.1)
+thread = threading.Thread(target=draw)
+thread.start()
+
 
 
 def main():
@@ -47,6 +53,7 @@ def main():
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            calculate_rate(i)
             # if (i + 1) % 10 == 0:
             #     print("epoch:", epoch, "step:", i, "loss:", loss.item())
             # if (i + 1) % 100 == 0:
@@ -55,9 +62,15 @@ def main():
         print("epoch %d %.2fs" % (epoch, time.time() - time_time))
         torch.save(cnn.state_dict(), "./model.pkl")  # current is model.pkl
         print("save model")
-        draw_line(epoch)
+        calculate_rate(epoch)
     torch.save(cnn.state_dict(), "./model.pkl")  # current is model.pkl
     print("save last model")
+
+
+def calculate_rate(epoch):
+    rate = captcha_test.calulate_rate()
+    x.append(epoch)
+    y.append(rate)
 
 
 if __name__ == '__main__':

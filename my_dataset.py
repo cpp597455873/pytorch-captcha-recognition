@@ -5,6 +5,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 import one_hot_encoding as ohe
 import captcha_setting
+import numpy as np
 
 
 class mydataset(Dataset):
@@ -26,6 +27,7 @@ class mydataset(Dataset):
         # print("width" + str(image.width) + " height" + str(image.height))
         if self.transform is not None:
             image = self.transform(image)
+        x1 = image[np.newaxis, :]
         name_ = image_name[0:4]
         label = ohe.encode(name_)  # 为了方便，在生成图片的时候，图片文件的命名格式 "4个数字_时间戳.PNG", 4个数字即是图片的验证码的值,同时对该值做 one-hot 处理
         return image, label
